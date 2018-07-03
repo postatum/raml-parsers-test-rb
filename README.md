@@ -11,23 +11,25 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 ## Install & run
 
 ```sh
-
+$ git clone git@github.com:postatum/raml-parsers-test-rb.git
+$ cd raml-parsers-test-rb
+$ ruby main.rb --parser PARSER_NAME
 ```
 
 ## Options
 
 Help:
 ```sh
-
+$ ruby main.rb -h
 ```
 
 Parser:
 ```sh
+$ ruby main.rb --parser brujula
 ```
-
 
 Verbose output (prints errors) (defaults to `false`):
 
 ```sh
-
+$ ruby main.rb --parser PARSER_NAME --verbose
 ```
