@@ -1,5 +1,8 @@
 require 'optparse'
 require 'ostruct'
+require 'tmpdir'
+require 'fileutils'
+require 'git'
 
 
 class OptParse
@@ -44,10 +47,15 @@ end  # class OptParse
 
 
 def clone_tck_repo()
-  # TODO
-  repo_dir = "/tmp/raml-tck"
+  repo_dir = File.join(Dir.tmpdir(), "raml-tck")
+  if File.directory?(repo_dir)
+    FileUtils.remove_dir(repo_dir)
+  end
   puts "Cloning raml-tck repo to #{repo_dir}"
-  return repo_dir
+  g = Git.clone(
+    "git@github.com:raml-org/raml-tck.git",
+    "", :path => repo_dir)
+  File.join(repo_dir, "tests", "raml-1.0")
 end
 
 def list_ramls(ex_dir)
