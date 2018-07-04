@@ -3,11 +3,10 @@ require 'raml/parser'
 
 
 def brujula_parse(fpath)
-    puts "brujula ok"
-   # return Brujula.parse_file(fpath)
+  # Access 'root' because looks like brujula uses lazy loading
+  Brujula.parse_file(fpath).root
 end
 
 def ramlrb_parse(fpath)
-    puts "ramlrb ok"
-    # return Raml::Parser.parse_file(fpath)
+  return Raml::Parser.parse_file(fpath)
 end

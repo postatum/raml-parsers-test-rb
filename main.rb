@@ -13,20 +13,41 @@ end
 
 def main()
   options = OptParse.parse(ARGV)
-  puts options.verbose
-  puts options.parser
-
   ex_dir = clone_tck_repo()
-  puts ex_dir
   files_list = list_ramls(ex_dir)
-  puts files_list
 
   passed = 0
+  error = nil
   total = files_list.length
+
   files_list.each do |fpath|
-    puts "> Parsing #{fpath}:"
-    parse_with(options.parser, fpath)
-  end
+    success = true
+    print "> Parsing #{fpath}: "
+
+    begin
+      parse_with(options.parser, fpath)
+    rescue Exception => e
+      success = false
+      error = e.message
+    end
+
+    if should_fail?(fpath)
+      success = !success
+      error = "Parsing expected to fail but succeeded"
+    end
+
+    if success
+      passed += 1
+      print "OK "
+    else
+      print "FAIL"
+      if options.verbose
+        print ": #{error}"
+      end
+    end
+    puts
+
+  end  # loop
 
   puts "\nPassed/Total: #{passed}/#{total}"
 end

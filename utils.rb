@@ -58,8 +58,12 @@ def clone_tck_repo()
   File.join(repo_dir, "tests", "raml-1.0")
 end
 
+
 def list_ramls(ex_dir)
-  # TODO
-  ramls = ["a", "b"]
-  ramls
+  Dir.glob("#{ex_dir}/**/*.raml")
+end
+
+
+def should_fail?(fpath)
+  fpath.downcase().include?("invalid")
 end
