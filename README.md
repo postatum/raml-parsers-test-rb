@@ -13,6 +13,7 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 ```sh
 $ git clone git@github.com:postatum/raml-parsers-test-rb.git
 $ cd raml-parsers-test-rb
+$ bundle install
 $ ruby main.rb --parser PARSER_NAME
 ```
 
@@ -25,7 +26,7 @@ $ ruby main.rb -h
 
 Parser:
 ```sh
-$ ruby main.rb --parser brujula
+$ ruby main.rb --parser brujula/ramlrb
 ```
 
 Verbose output (prints errors) (defaults to `false`):

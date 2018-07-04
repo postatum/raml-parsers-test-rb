@@ -1,9 +1,12 @@
 require 'optparse'
 require 'ostruct'
 
+
 class OptParse
 
-  PARSERS = %w[brujula]
+  # brujula: https://github.com/nogates/brujula
+  # ramlrb:  https://github.com/jpb/raml-rb
+  PARSERS = %w[brujula ramlrb]
 
   def self.parse(args)
     options = OpenStruct.new
@@ -38,3 +41,17 @@ class OptParse
     options
   end  # parse()
 end  # class OptParse
+
+
+def clone_tck_repo()
+  # TODO
+  repo_dir = "/tmp/raml-tck"
+  puts "Cloning raml-tck repo to #{repo_dir}"
+  return repo_dir
+end
+
+def list_ramls(ex_dir)
+  # TODO
+  ramls = ["a", "b"]
+  ramls
+end
