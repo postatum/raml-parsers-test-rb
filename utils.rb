@@ -51,10 +51,11 @@ def clone_tck_repo
   repo_dir = File.join(Dir.tmpdir, 'raml-tck')
   FileUtils.remove_dir(repo_dir) if File.directory?(repo_dir)
   puts "Cloning raml-tck repo to #{repo_dir}"
-  Git.clone(
+  repo = Git.clone(
     'git@github.com:raml-org/raml-tck.git',
     '', path: repo_dir
   )
+  repo.checkout('rename-cleanup')
   File.join(repo_dir, 'tests', 'raml-1.0')
 end
 
