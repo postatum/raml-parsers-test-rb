@@ -3,6 +3,7 @@ require 'ostruct'
 require 'tmpdir'
 require 'fileutils'
 require 'git'
+require 'json'
 
 # OptParse parses CLI options
 class OptParse
@@ -60,7 +61,12 @@ def clone_tck_repo
 end
 
 def list_ramls(ex_dir)
-  Dir.glob("#{ex_dir}/**/*.raml")
+  manifest_path = File.join(ex_dir, 'manifest.json')
+  manifest_file = File.read(manifest_path)
+  manifest = JSON.parse(manifest_file)
+  manifest['filePaths'].map do |fpath|
+    File.join(ex_dir, fpath)
+  end
 end
 
 def should_fail?(fpath)
