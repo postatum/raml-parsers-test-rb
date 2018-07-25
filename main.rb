@@ -15,9 +15,11 @@ def main
   ex_dir = clone_tck_repo
   files_list = list_ramls(ex_dir)
 
-  passed = 0
+  count = {
+    'valid' => { 'passed' => 0, 'total' => 0 },
+    'invalid' => { 'passed' => 0, 'total' => 0 }
+  }
   error = nil
-  total = files_list.length
 
   files_list.each do |fpath|
     success = true
@@ -30,13 +32,16 @@ def main
       error = e.message
     end
 
-    if should_fail?(fpath)
+    shouldf = should_fail?(fpath)
+    count_key = shouldf ? 'invalid' : 'valid'
+    count[count_key]['total'] += 1
+    if shouldf
       success = !success
       error = 'Parsing expected to fail but succeeded'
     end
 
     if success
-      passed += 1
+      count[count_key]['passed'] += 1
       print 'OK '
     else
       print 'FAIL'
@@ -44,7 +49,9 @@ def main
     end
     puts
   end
-  puts "\nPassed/Total: #{passed}/#{total}"
+  puts("\nPassed/Total: #{count['valid']['passed'] + count['invalid']['passed']}/#{files_list.length}" \
+       " (valid: #{count['valid']['passed']}/#{count['valid']['total']}," \
+       " invalid: #{count['invalid']['passed']}/#{count['invalid']['total']})")
 end
 
 main
